@@ -6,7 +6,7 @@ import {
   watchI18n,
 } from 'src/client/store/reducers/i18n/i18n.saga';
 
-import { watchExample } from 'src/client/store/__example/example.saga';
+import { watchExample } from 'src/client/store/reducers/__example/example.saga';
 
 import {
   rootSaga,
