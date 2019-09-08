@@ -2,7 +2,7 @@
 * Saga
 * */
 
-import { normalizeExampleData } from 'src/common/services/normalize';
+import { normalizeExampleData } from 'src/common/services/normalize/index';
 import {
   takeLatest, all, call, put, fork, getContext,
 } from 'redux-saga/effects';
