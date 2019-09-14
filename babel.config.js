@@ -9,6 +9,7 @@ module.exports = {
     [
       '@babel/preset-env',
       {
+        corejs: 3,
         useBuiltIns: 'entry',
         targets: {
           browsers: [
