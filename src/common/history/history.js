@@ -5,17 +5,21 @@
 
 import { createBrowserHistory, createMemoryHistory } from 'history';
 
-const historyConfig = {
+export const historyConfig = {
   baseName: '',
   forceRefresh: false,
 };
 
 export const createClientHistory = () => createBrowserHistory(historyConfig);
 
-export const createServerHistory = ({ path }) => {
+export const createServerHistory = ({ path } = {}) => {
+  const initialEntriesArgument = path ? {
+    initialEntries: [path],
+  } : {};
+
   const history = createMemoryHistory({
     ...historyConfig,
-    initialEntries: [path],
+    ...initialEntriesArgument,
   });
 
   return history;

@@ -5,6 +5,7 @@ import get from 'lodash/get';
 
 import { createAppStore } from 'src/client/store/store';
 import { createServices } from 'src/common/services';
+import { createClientHistory } from 'src/common/history';
 
 import inlineScripts from 'src/client/inline-scripts/compiled/inline-scripts';
 
@@ -28,8 +29,13 @@ export const startApplication = async () => {
     location: window.location,
     cookie: document.cookie,
   });
+  const history = createClientHistory();
 
-  const appStore = await createAppStore({ services, initialState: preloadedState });
+  const appStore = await createAppStore({
+    services,
+    initialState: preloadedState,
+    history,
+  });
   const app = createApp({ store: appStore, services });
 
   hydrate(app, document.getElementById(ROOT_ELEMENT_ID));
