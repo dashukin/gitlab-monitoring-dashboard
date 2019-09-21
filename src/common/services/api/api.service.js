@@ -17,7 +17,8 @@ const defaultConfig = {
 class Api {
   /**
    *
-   * @param options
+   * @param {Object} options
+   * @param {String} options.baseURL
    * @param {Array} [options.requestInterceptors]
    * @param {Array} [options.responseInterceptors]
    */
@@ -25,9 +26,9 @@ class Api {
     const config = merge(defaultConfig, {
       transformRequest: [this._transformRequest],
       transformResponse: [this._transformResponse],
-    });
+    }, options);
 
-    this.instance = axios.create(config);
+    this._instance = axios.create(config);
 
     const requestInterceptors = options.requestInterceptors || [];
     const responseInterceptors = options.responseInterceptors || [];
@@ -62,12 +63,10 @@ class Api {
     };
     const meaningfulRequestConfig = pickBy(requestConfig, data => !isNil(data));
 
-    return this.instance.request(meaningfulRequestConfig);
+    return this._instance.request(meaningfulRequestConfig);
   }
 
-  get(url, params, headers) {
-    return this.request(url, GET, params, null, headers);
-  }
+  get = (url, params, headers) => this.request(url, GET, params, null, headers)
 
   post(url, params, body, headers) {
     return this.request(url, POST, params, body, headers);

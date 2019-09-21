@@ -38,7 +38,9 @@ export const startServer = () => {
   server.use(staticMiddleware);
   server.use([
     cookieMiddleware(),
-    servicesMiddleware(),
+    servicesMiddleware({
+      logger,
+    }),
   ]);
 
   server.use('/api', apiRouter);

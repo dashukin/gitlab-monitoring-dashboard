@@ -1,4 +1,4 @@
-import { fork } from 'redux-saga/effects';
+import { fork, spawn } from 'redux-saga/effects';
 import map from 'lodash/map';
 
 import {
@@ -7,6 +7,8 @@ import {
 } from 'src/client/store/reducers/i18n/i18n.saga';
 
 import { watchExample } from 'src/client/store/reducers/__example/example.saga';
+import { watchProjects } from 'src/client/store/reducers/projects/projects.saga';
+import { watchMergeRequests } from 'src/client/store/reducers/merge-requests/merge-requests.saga';
 
 import {
   rootSaga,
@@ -19,8 +21,14 @@ jest.mock('redux-saga/effects');
 
 describe('store.saga', () => {
   describe('rootSaga', () => {
-    it('should execute start sagas with fork effect', () => {
-      rootSaga().next();
+    it('should execute start sagas', () => {
+      const gen = rootSaga();
+
+      gen.next();
+
+      expect(spawn).toHaveBeenCalledWith(watchSaga);
+
+      gen.next();
 
       map(startSagas, (saga) => {
         expect(fork).toHaveBeenCalledWith(saga);
@@ -33,7 +41,7 @@ describe('store.saga', () => {
       watchSaga().next();
 
       map(watchSagas, (saga) => {
-        expect(fork).toHaveBeenCalledWith(saga);
+        expect(spawn).toHaveBeenCalledWith(saga);
       });
     });
   });
@@ -53,6 +61,8 @@ describe('store.saga', () => {
       const expected = [
         watchI18n,
         watchExample,
+        watchProjects,
+        watchMergeRequests,
       ];
 
       expect(watchSagas).toEqual(expected);

@@ -19,4 +19,7 @@ export const routesMap = {
       dispatch(action);
     },
   },
+  PROJECT: {
+    path: '/project/:projectId',
+  },
 };

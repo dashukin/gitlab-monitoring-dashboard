@@ -4,6 +4,8 @@ exports[`store.reducer reducers should match snapshot 1`] = `
 Object {
   "db": [Function],
   "example": [Function],
+  "mergeRequests": [Function],
   "page": [Function],
+  "projects": [Function],
 }
 `;
