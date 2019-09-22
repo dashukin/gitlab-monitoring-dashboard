@@ -7,7 +7,7 @@ import { convertRawUser } from '../helpers/schema.helpers';
  *
  * @property {Number} id
  * @property {Number} iid
- * @property {Number} project_id
+ * @property {String} project_id
  * @property {String} title
  * @property {String} description
  * @property {String} state - e.g. 'active'
@@ -59,7 +59,13 @@ import { convertRawUser } from '../helpers/schema.helpers';
  */
 
 /**
+ * @typedef {Object} MergeRequest
  *
+ * @property {Number} id
+ * @property {Number} projectId
+ * @property {User} projectId
+ * @property {User} author
+ * @property {String} createAt
  */
 
 
@@ -79,6 +85,7 @@ export const mergeRequestSchema = new schema.Entity('mergeRequest', {}, {
     mergeRequestData.labels = entity.labels;
     mergeRequestData.title = entity.title;
     mergeRequestData.description = entity.description;
+    mergeRequestData.createdAt = entity.created_at;
 
 
     if (!PRODUCTION) {

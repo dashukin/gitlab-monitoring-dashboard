@@ -26,6 +26,8 @@ class ProjectsApi extends Api {
   fetchProjects = () => this.get('/projects');
 
   fetchProject = id => this.get(`/projects/${id}`);
+
+  fetchMergeRequests = id => this.get(`/projects/${id}/merge-requests`);
 }
 
 export default ProjectsApi;

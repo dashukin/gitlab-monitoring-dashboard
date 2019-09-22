@@ -2,7 +2,6 @@
 * Saga
 * */
 
-import { normalizeMergeRequests } from 'src/common/services/normalize';
 import {
   takeLatest, all, call, put, spawn, getContext,
 } from 'redux-saga/effects';
@@ -18,16 +17,14 @@ const {
   MERGE_REQUESTS_FETCH,
 } = mergeRequestsConstants;
 
-export function* fetchMergeRequests(action) {
+export function* fetchMergeRequestsByProjectId(projectId) {
   try {
-    const projectId = action.payload;
     const services = yield getContext('services');
-    const { gitlabApi } = services;
+    const { projectsApi } = services;
 
-    const mrResponse = yield call(gitlabApi.fetchMergeRequests, projectId);
-    const mrDataNormalized = normalizeMergeRequests(mrResponse);
-    const mergeRequestsIds = mrDataNormalized.result;
-    const mergeRequestsEntities = mrDataNormalized.entities.mergeRequest;
+    const { data } = yield call(projectsApi.fetchMergeRequests, projectId);
+    const mergeRequestsIds = data.result;
+    const mergeRequestsEntities = data.entities.mergeRequest;
 
     yield put(addToDB({
       key: 'mergeRequests',
@@ -36,16 +33,24 @@ export function* fetchMergeRequests(action) {
 
     yield put(fetchMergeRequestsSuccess(mergeRequestsIds));
   } catch (error) {
+    console.error(error);
     yield put(fetchMergeRequestsError({ error: error.message }));
   }
 }
 
-export function* watchFetchExampleData() {
+export function* fetchMergeRequests(action) {
+  const projectId = action.payload;
+
+  yield call(fetchMergeRequestsByProjectId, projectId);
+}
+
+
+export function* watchFetchMergeRequests() {
   yield takeLatest(MERGE_REQUESTS_FETCH, fetchMergeRequests);
 }
 
 export const watchers = [
-  watchFetchExampleData,
+  watchFetchMergeRequests,
 ];
 
 export function* watchMergeRequests() {

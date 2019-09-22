@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import ProjectMergeRequests from './components/project-merge-requests';
 
 class ProjectPage extends PureComponent {
   componentDidMount() {
@@ -22,31 +23,53 @@ class ProjectPage extends PureComponent {
   }
 
   fetchProject(projectId) {
-    const {
-      fetchProject,
-      fetchMergeRequests,
-    } = this.props;
+    this.props.fetchProjectData(projectId);
+  }
 
-    fetchProject(projectId);
-    fetchMergeRequests(projectId);
+  getMergeRequestsOutput() {
+    const { mergeRequests } = this.props;
+    const output = (
+      <ProjectMergeRequests mergeRequests={mergeRequests} />
+    );
+
+    return output;
+  }
+
+  getloadingOutput() {
+    return 'loading...';
+  }
+
+  getRenderingOutput() {
+    const { isLoading, project } = this.props;
+    const output = !project || isLoading ? this.getloadingOutput() : this.getMergeRequestsOutput();
+    return output;
   }
 
   render() {
+    const mergeRequests = this.getRenderingOutput();
     const output = (
-      <div>Project page</div>
+      <div>
+        <div>Project page</div>
+        {mergeRequests}
+      </div>
     );
     return output;
   }
 }
 
 ProjectPage.propTypes = {
-  projectId: PropTypes.string,
-  fetchProject: PropTypes.func.isRequired,
-  fetchMergeRequests: PropTypes.func.isRequired,
+  projectId: PropTypes.number,
+  project: PropTypes.shape({}),
+  fetchProjectData: PropTypes.func.isRequired,
+  mergeRequests: PropTypes.arrayOf(PropTypes.shape({})),
+  isLoading: PropTypes.bool,
 };
 
 ProjectPage.defaultProps = {
   projectId: undefined,
+  project: undefined,
+  mergeRequests: [],
+  isLoading: false,
 };
 
 export default ProjectPage;

@@ -45,12 +45,11 @@ export function* watchFetchExampleData() {
   yield takeLatest(PROJECTS_FETCH, fetchProjects);
 }
 
-export function* fetchProject(action) {
+export function* fetchProjectById(projectId) {
   try {
-    const id = action.payload;
     const services = yield getContext('services');
     const { projectsApi } = services;
-    const response = yield call(projectsApi.fetchProject, id);
+    const response = yield call(projectsApi.fetchProject, projectId);
     const { data } = response;
     const projectEntity = data.entities.project;
 
@@ -61,6 +60,11 @@ export function* fetchProject(action) {
   } catch (e) {
     console.error(e);
   }
+}
+
+export function* fetchProject(action) {
+  const projectId = action.payload;
+  yield call(fetchProjectById, projectId);
 }
 
 export function* watchFetchProject() {

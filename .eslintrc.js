@@ -6,7 +6,7 @@ module.exports = {
   extends: [
     'airbnb',
     'plugin:import/errors',
-    'plugin:import/warnings'
+    'plugin:import/warnings',
   ],
   globals: {
     Atomics: 'readonly',
@@ -42,7 +42,9 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'react/jsx-filename-extension': 'off',
     'react/prefer-stateless-function': 'off',
-    'no-use-before-define': 'off',
+    'react/sort-comp': 'off',
+    'react/destructuring-assignment': 'off',
+    'no-use-before-define': 'off'
   },
   settings: {
     'import/resolver': {
