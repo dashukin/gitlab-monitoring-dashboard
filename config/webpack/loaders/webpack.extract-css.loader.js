@@ -10,5 +10,5 @@
 import ExtractCssChunks from 'extract-css-chunks-webpack-plugin';
 
 export const webpackExtractCssLoader = () => (
-	ExtractCssChunks.loader
+  ExtractCssChunks.loader
 );
