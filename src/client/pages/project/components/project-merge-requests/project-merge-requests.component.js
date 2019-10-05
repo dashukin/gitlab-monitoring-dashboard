@@ -53,7 +53,7 @@ class ProjectMergeRequests extends PureComponent {
     const output = jiraIssues.map((jiraIssue) => {
       const label = `${jiraIssue.key} ${jiraIssue.fields.status.name}`;
       const jiraIssueIdOutput = (
-        <div>
+        <div key={jiraIssue.key}>
           <JiraIssueBadge
             label={label}
           />
