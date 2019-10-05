@@ -4,7 +4,7 @@ import db from 'src/client/store/reducers/db/db.reducer';
 import projectData from 'src/client/store/reducers/project/project.reducer';
 import projects from 'src/client/store/reducers/projects/projects.reducer';
 import mergeRequests from 'src/client/store/reducers/merge-requests/merge-requests.reducer';
-import example from 'src/client/store/reducers/__example/example.reducer';
+import jiraIssues from 'src/client/store/reducers/jira-issues/jira-issues.reducer';
 
 export const reducers = {
   db,
@@ -12,7 +12,7 @@ export const reducers = {
   projectData,
   projects,
   mergeRequests,
-  example,
+  jiraIssues,
 };
 
 export const createCombinedReducers = extraReducers => (

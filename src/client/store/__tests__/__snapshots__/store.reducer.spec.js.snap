@@ -3,9 +3,10 @@
 exports[`store.reducer reducers should match snapshot 1`] = `
 Object {
   "db": [Function],
-  "example": [Function],
+  "jiraIssues": [Function],
   "mergeRequests": [Function],
   "page": [Function],
+  "projectData": [Function],
   "projects": [Function],
 }
 `;

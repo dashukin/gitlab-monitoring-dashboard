@@ -6,7 +6,6 @@ import {
   watchI18n,
 } from 'src/client/store/reducers/i18n/i18n.saga';
 
-import { watchExample } from 'src/client/store/reducers/__example/example.saga';
 import { watchProjects } from 'src/client/store/reducers/projects/projects.saga';
 import { watchMergeRequests } from 'src/client/store/reducers/merge-requests/merge-requests.saga';
 
@@ -16,6 +15,8 @@ import {
   watchSagas,
   watchSaga,
 } from '../store.saga';
+import { watchJiraIssues } from '../reducers/jira-issues/jira-issues.saga';
+import { watchFetchProjectData } from '../reducers/project/project.saga';
 
 jest.mock('redux-saga/effects');
 
@@ -60,9 +61,10 @@ describe('store.saga', () => {
     it('should contain watch sagas', () => {
       const expected = [
         watchI18n,
-        watchExample,
+        watchFetchProjectData,
         watchProjects,
         watchMergeRequests,
+        watchJiraIssues,
       ];
 
       expect(watchSagas).toEqual(expected);

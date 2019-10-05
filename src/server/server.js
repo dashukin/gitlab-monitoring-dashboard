@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import helmet from 'helmet';
+import bodyParser from 'body-parser';
 import serveStatic from 'serve-static';
 import Logger from 'src/common/utils/logger';
 import {
@@ -37,6 +38,7 @@ export const startServer = () => {
   server.use(Router());
   server.use(staticMiddleware);
   server.use([
+    bodyParser.json(),
     cookieMiddleware(),
     servicesMiddleware({
       logger,

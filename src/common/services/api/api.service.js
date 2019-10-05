@@ -35,6 +35,9 @@ class Api {
 
     this._applyRequestInterceptors(requestInterceptors);
     this._applyResponseInterceptors(responseInterceptors);
+
+    this._instance.defaults.headers.get['Content-Type'] = 'application/json';
+    this._instance.defaults.headers.post['Content-Type'] = 'application/json';
   }
 
   _applyRequestInterceptors = forEach(

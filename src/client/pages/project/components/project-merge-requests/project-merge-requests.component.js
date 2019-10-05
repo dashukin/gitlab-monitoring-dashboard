@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Badge from '@material-ui/core/Badge';
 import ThumbUp from '@material-ui/icons/ThumbUp';
+import JiraIssueBadge from 'src/client/components/jira-issue-badge';
 import TimeAgo from 'react-timeago';
 
 import './project-merge-requests.scss';
@@ -38,6 +39,9 @@ class ProjectMergeRequests extends PureComponent {
           <TableCell variant="head">
             Upvotes
           </TableCell>
+          <TableCell variant="head">
+            Jira ID
+          </TableCell>
         </TableRow>
       </TableHead>
     );
@@ -45,9 +49,27 @@ class ProjectMergeRequests extends PureComponent {
     return output;
   }
 
+  getMergeRequestJiraIssues(jiraIssues) {
+    const output = jiraIssues.map((jiraIssue) => {
+      const label = `${jiraIssue.key} ${jiraIssue.fields.status.name}`;
+      const jiraIssueIdOutput = (
+        <div>
+          <JiraIssueBadge
+            label={label}
+          />
+        </div>
+      );
+
+      return jiraIssueIdOutput;
+    });
+
+    return output;
+  }
+
   getMergeRequestsBody() {
     const { mergeRequests } = this.props;
     const rows = map(mergeRequests, (mr) => {
+      const jiraIssuesIds = this.getMergeRequestJiraIssues(mr.jiraIssues);
       const mergeRequestRow = (
         <TableRow key={mr.id}>
           <TableCell>{mr.id}</TableCell>
@@ -62,6 +84,9 @@ class ProjectMergeRequests extends PureComponent {
             <Badge badgeContent={mr.upvotes} max={10}>
               <ThumbUp fontSize="small" />
             </Badge>
+          </TableCell>
+          <TableCell>
+            {jiraIssuesIds}
           </TableCell>
         </TableRow>
       );

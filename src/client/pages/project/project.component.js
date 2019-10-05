@@ -27,9 +27,14 @@ class ProjectPage extends PureComponent {
   }
 
   getMergeRequestsOutput() {
-    const { mergeRequests } = this.props;
+    const {
+      mergeRequests,
+    } = this.props;
+
     const output = (
-      <ProjectMergeRequests mergeRequests={mergeRequests} />
+      <ProjectMergeRequests
+        mergeRequests={mergeRequests}
+      />
     );
 
     return output;

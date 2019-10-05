@@ -15,6 +15,7 @@ class Root extends PureComponent {
     return (
       <Fragment>
         {Boolean(inlineScripts) && (
+          // eslint-disable-next-line react/no-danger
           <script dangerouslySetInnerHTML={{ __html: inlineScripts }} />
         )}
         <ReactReduxProvider store={store}>

@@ -2,11 +2,16 @@ import { Router } from 'express';
 import {
   getProjects,
   getProjectMergeRequests,
-} from './projects';
+} from './gitlab/projects';
+import {
+  getIssues,
+} from './jira/issues';
 
 const apiRouter = Router();
 
-apiRouter.get('/projects/(:projectId)?', getProjects);
-apiRouter.get('/projects/:projectId/merge-requests', getProjectMergeRequests);
+apiRouter.get('/gitlab/projects/(:projectId)?', getProjects);
+apiRouter.get('/gitlab/projects/:projectId/merge-requests', getProjectMergeRequests);
+
+apiRouter.post('/jira/issues', getIssues);
 
 export default apiRouter;

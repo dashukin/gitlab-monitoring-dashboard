@@ -1,10 +1,10 @@
-import Api from 'src/common/services/api';
+import Api from '../index';
 
-class ProjectsApi extends Api {
+class JiraApi extends Api {
   constructor(props) {
     const extendedProps = {
       ...props,
-      baseURL: '/api/gitlab',
+      baseURL: '/api/jira',
     };
 
     super(extendedProps);
@@ -23,11 +23,16 @@ class ProjectsApi extends Api {
     return output;
   };
 
-  fetchProjects = () => this.get('/projects');
+  /**
+   *
+   * @param {String|String[]} ids
+   * @return {*}
+   */
+  fetchIssues = (ids) => {
+    const request = this.post('/issues', undefined, JSON.stringify(ids));
 
-  fetchProject = id => this.get(`/projects/${id}`);
-
-  fetchMergeRequests = id => this.get(`/projects/${id}/merge-requests`);
+    return request;
+  };
 }
 
-export default ProjectsApi;
+export default JiraApi;

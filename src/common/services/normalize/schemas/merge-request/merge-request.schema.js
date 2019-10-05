@@ -1,6 +1,9 @@
 import { schema } from 'normalizr';
 import cloneDeep from 'lodash/cloneDeep';
-import { convertRawUser } from '../helpers/schema.helpers';
+import {
+  convertRawUser,
+  extractMergeRequestIssues,
+} from '../helpers/schema.helpers';
 
 /**
  * @typedef {Object} RawMilestone
@@ -86,6 +89,7 @@ export const mergeRequestSchema = new schema.Entity('mergeRequest', {}, {
     mergeRequestData.title = entity.title;
     mergeRequestData.description = entity.description;
     mergeRequestData.createdAt = entity.created_at;
+    mergeRequestData.jiraIssues = extractMergeRequestIssues(entity.title);
 
 
     if (!PRODUCTION) {
