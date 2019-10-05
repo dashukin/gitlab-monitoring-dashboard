@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import * as pages from 'src/client/pages';
+import Header from 'src/client/components/header';
 import DefaultPage from './pages';
 
 import './application.scss';
@@ -21,6 +22,7 @@ class Application extends PureComponent {
 
     return (
       <div className="application">
+        <Header />
         {page}
       </div>
     );

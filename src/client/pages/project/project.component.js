@@ -1,6 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import ProjectMergeRequests from './components/project-merge-requests';
+
+import './project.scss';
 
 class ProjectPage extends PureComponent {
   componentDidMount() {
@@ -41,7 +45,11 @@ class ProjectPage extends PureComponent {
   }
 
   getloadingOutput() {
-    return 'loading...';
+    const loader = (
+      <CircularProgress className="project-page__loader" />
+    );
+
+    return loader;
   }
 
   getRenderingOutput() {
@@ -53,8 +61,7 @@ class ProjectPage extends PureComponent {
   render() {
     const mergeRequests = this.getRenderingOutput();
     const output = (
-      <div>
-        <div>Project page</div>
+      <div className="project-page">
         {mergeRequests}
       </div>
     );
