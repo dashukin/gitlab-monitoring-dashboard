@@ -8,6 +8,9 @@ import {
 
 import { watchProjects } from 'src/client/store/reducers/projects/projects.saga';
 import { watchMergeRequests } from 'src/client/store/reducers/merge-requests/merge-requests.saga';
+import { watchJiraIssues } from 'src/client/store/reducers/jira-issues/jira-issues.saga';
+import { watchFetchProjectData } from 'src/client/store/reducers/project/project.saga';
+import { watchGitlabMrAwardEmoji } from 'src/client/store/reducers/gitlab-award-emoji/gitlab-award-emoji.saga';
 
 import {
   rootSaga,
@@ -15,9 +18,6 @@ import {
   watchSagas,
   watchSaga,
 } from '../store.saga';
-import { watchJiraIssues } from 'src/client/store/reducers/jira-issues/jira-issues.saga';
-import { watchFetchProjectData } from 'src/client/store/reducers/project/project.saga';
-import { watchGitlabMrAwardEmoji } from 'src/client/store/reducers/gitlab-award-emoji/gitlab-award-emoji.saga';
 
 jest.mock('redux-saga/effects');
 
