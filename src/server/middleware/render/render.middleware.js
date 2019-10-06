@@ -8,6 +8,9 @@ import isError from 'lodash/isError';
 import map from 'lodash/map';
 import reduce from 'lodash/reduce';
 import isString from 'lodash/isString';
+import { minify } from 'csso';
+
+import { ServerStyleSheets } from '@material-ui/styles';
 
 /**
  * Get rendering template
@@ -164,6 +167,7 @@ const extractChunks = (options) => {
  * @param {String} app - stringified application
  * @param {String} scripts
  * @param {String} styles
+ * @param {String} jss
  */
 const processTemplate = (options) => {
   const {
@@ -172,13 +176,15 @@ const processTemplate = (options) => {
     state,
     scripts,
     styles,
+    jss,
   } = options;
 
   const processedTemplate = tpl
     .replace(/<!--TEMPLATE_APP-->/, app)
     .replace(/<!--TEMPLATE_APP_STATE-->/, state)
     .replace(/<!--TEMPLATE_APP_SCRIPTS-->/, scripts)
-    .replace(/<!--TEMPLATE_APP_STYLES-->/, styles);
+    .replace(/<!--TEMPLATE_APP_STYLES-->/, styles)
+    .replace(/<!--TEMPLATE_APP_JSS-->/, jss);
 
   return processedTemplate;
 };
@@ -240,7 +246,13 @@ const renderMiddleware = options => async (req, res, next) => {
     next(template);
   }
 
-  const stringifiedApp = ReactDOMServer.renderToString(wrappedApp);
+  const sheets = new ServerStyleSheets();
+
+  const stringifiedApp = ReactDOMServer.renderToString(
+    sheets.collect(wrappedApp),
+  );
+
+  const { css: jss } = minify(sheets.toString());
 
   const webpackStats = await getWebpackStats({
     src: webpackStatsSrc,
@@ -264,6 +276,7 @@ const renderMiddleware = options => async (req, res, next) => {
     state: appState,
     scripts,
     styles,
+    jss,
   });
 
   res.setHeader('Content-Type', 'text/html');
