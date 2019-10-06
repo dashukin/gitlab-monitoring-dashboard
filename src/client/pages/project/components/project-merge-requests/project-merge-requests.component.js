@@ -31,9 +31,6 @@ class ProjectMergeRequests extends PureComponent {
       <TableHead>
         <TableRow>
           <TableCell variant="head">
-            ID
-          </TableCell>
-          <TableCell variant="head">
             Details
           </TableCell>
           <TableCell variant="head">
@@ -102,10 +99,10 @@ class ProjectMergeRequests extends PureComponent {
 
       const mergeRequestRow = (
         <TableRow key={mr.id}>
-          <TableCell>{mr.id}</TableCell>
           <TableCell>
-            <div>{mr.title}</div>
-            <div>{mr.description}</div>
+            <Tooltip title={mr.description} interactive>
+              <div>{mr.title}</div>
+            </Tooltip>
           </TableCell>
           <TableCell className={classnames.cell}>
             <TimeAgo date={mr.createdAt} />
