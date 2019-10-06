@@ -4,6 +4,7 @@ exports[`application.component application.component snapshots should match snap
 <div
   className="application"
 >
+  <Header />
   <UniversalComponent />
 </div>
 `;
@@ -12,6 +13,7 @@ exports[`application.component application.component snapshots should match snap
 <div
   className="application"
 >
+  <Header />
   <UniversalComponent />
 </div>
 `;
@@ -20,6 +22,7 @@ exports[`application.component application.component snapshots should match snap
 <div
   className="application"
 >
+  <Header />
   <UniversalComponent />
 </div>
 `;

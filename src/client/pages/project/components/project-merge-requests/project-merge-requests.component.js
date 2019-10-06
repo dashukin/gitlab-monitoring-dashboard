@@ -9,7 +9,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Badge from '@material-ui/core/Badge';
 import ThumbUp from '@material-ui/icons/ThumbUp';
-import JiraIssueBadge from 'src/client/components/jira-issue-badge';
+import JiraIssueBadge from 'src/client/components/jira-issue-chip';
+import JiraFixVersionChip from 'src/client/components/jira-fix-version-chip';
+import GitlabFixVersionChip from 'src/client/components/gitlab-fix-version-chip';
 import TimeAgo from 'react-timeago';
 
 import './project-merge-requests.scss';
@@ -40,7 +42,13 @@ class ProjectMergeRequests extends PureComponent {
             Upvotes
           </TableCell>
           <TableCell variant="head">
+            Milestone
+          </TableCell>
+          <TableCell variant="head">
             Jira ID
+          </TableCell>
+          <TableCell variant="head">
+            Jira f/v
           </TableCell>
         </TableRow>
       </TableHead>
@@ -65,10 +73,28 @@ class ProjectMergeRequests extends PureComponent {
     return output;
   }
 
+  getMergeRequestJiraFixVersions(jiraIssues) {
+    const output = jiraIssues.map((jiraIssue) => {
+      const jiraIssueIdOutput = (
+        <div key={jiraIssue.key}>
+          <JiraFixVersionChip
+            jiraIssue={jiraIssue}
+          />
+        </div>
+      );
+
+      return jiraIssueIdOutput;
+    });
+
+    return output;
+  }
+
   getMergeRequestsBody() {
     const { mergeRequests } = this.props;
     const rows = map(mergeRequests, (mr) => {
       const jiraIssuesIds = this.getMergeRequestJiraIssues(mr.jiraIssues);
+      const jiraFixVersions = this.getMergeRequestJiraFixVersions(mr.jiraIssues);
+
       const mergeRequestRow = (
         <TableRow key={mr.id}>
           <TableCell>{mr.id}</TableCell>
@@ -85,7 +111,15 @@ class ProjectMergeRequests extends PureComponent {
             </Badge>
           </TableCell>
           <TableCell>
+            <GitlabFixVersionChip
+              mergeRequest={mr}
+            />
+          </TableCell>
+          <TableCell>
             {jiraIssuesIds}
+          </TableCell>
+          <TableCell>
+            {jiraFixVersions}
           </TableCell>
         </TableRow>
       );

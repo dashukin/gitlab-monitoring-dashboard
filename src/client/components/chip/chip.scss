@@ -1,6 +1,13 @@
-.jira-issue-badge {
+.custom-chip {
 	// override mui styles on the root node
 	border-radius: 4px !important;
 	height: auto !important;
 	padding: 3px !important;
+
+	& &__label {
+		display: block;
+		max-width: 130px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
 }

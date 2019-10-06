@@ -60,6 +60,17 @@ import { schema } from 'normalizr';
 
 export const jiraIssueSchema = new schema.Entity('issue', {}, {
   processStrategy(entity) {
-    return entity;
+    const data = {
+      id: entity.id,
+      key: entity.key,
+      labels: entity.fields.labels,
+      fixVersions: entity.fields.fixVersions,
+      status: entity.fields.status,
+      issuetype: entity.fields.issuetype,
+    };
+
+    data.__raw = entity;
+
+    return data;
   },
 });

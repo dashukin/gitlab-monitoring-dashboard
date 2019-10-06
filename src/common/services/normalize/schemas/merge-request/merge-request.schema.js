@@ -3,18 +3,8 @@ import cloneDeep from 'lodash/cloneDeep';
 import {
   convertRawUser,
   extractMergeRequestIssues,
+  extractMilestone,
 } from '../helpers/schema.helpers';
-
-/**
- * @typedef {Object} RawMilestone
- *
- * @property {Number} id
- * @property {Number} iid
- * @property {String} project_id
- * @property {String} title
- * @property {String} description
- * @property {String} state - e.g. 'active'
- */
 
 /**
  * @typedef {Object} RawTimeStats
@@ -81,7 +71,7 @@ export const mergeRequestSchema = new schema.Entity('mergeRequest', {}, {
     mergeRequestData.assignee = convertRawUser(entity.assignee);
     mergeRequestData.author = convertRawUser(entity.author);
     mergeRequestData.state = entity.state;
-    mergeRequestData.milestone = entity.milestone;
+    mergeRequestData.milestone = entity.milestone ? extractMilestone(entity.milestone) : null;
     mergeRequestData.upvotes = entity.upvotes;
     mergeRequestData.downvotes = entity.downvotes;
     mergeRequestData.userNotesCount = entity.user_notes_count;

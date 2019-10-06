@@ -52,3 +52,44 @@ export const extractMergeRequestIssues = (title) => {
 
   return output;
 };
+
+/**
+ * @typedef {Object} RawMilestone
+ *
+ * @property {Number} id
+ * @property {Number} iid
+ * @property {String} project_id
+ * @property {String} title
+ * @property {String} description
+ * @property {String} state - e.g. 'active'
+ */
+
+
+/**
+ * @typedef {Object} Milestone
+ *
+ * @property {Number} id
+ * @property {Number} iid
+ * @property {String} projectId
+ * @property {String} title
+ * @property {String} description
+ * @property {String} state - e.g. 'active'
+ */
+
+/**
+ *
+ * @param {RawMilestone} data
+ * @return {Milestone}
+ */
+export const extractMilestone = (data) => {
+  const milestone = {
+    id: data.id,
+    iid: data.iid,
+    projectId: data.project_id,
+    title: data.title,
+    description: data.description,
+    state: data.state,
+  };
+
+  return milestone;
+};
