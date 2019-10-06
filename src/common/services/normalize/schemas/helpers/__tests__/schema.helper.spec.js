@@ -17,6 +17,9 @@ describe('schema.helper', () => {
     }, {
       title: '[ABC-123] [FE] Merge request title',
       issues: ['ABC-123'],
+    }, {
+      title: '[ABC-123, DEF-456] [FE] Merge request title',
+      issues: ['ABC-123', 'DEF-456'],
     }];
 
     expectations.forEach(({ title, issues }) => {

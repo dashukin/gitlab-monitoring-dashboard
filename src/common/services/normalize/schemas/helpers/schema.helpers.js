@@ -36,7 +36,7 @@ export const convertRawUser = (rawUserData) => {
 };
 
 
-export const getJiraIssuePattern = () => /(?:\[)\w+-\d+(?:\])/g;
+export const getJiraIssuePattern = () => /(\w+-\d+)+/g;
 
 /**
  * Extract issues from merge request title
