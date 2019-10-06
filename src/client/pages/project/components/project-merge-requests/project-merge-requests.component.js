@@ -10,7 +10,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Badge from '@material-ui/core/Badge';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import Tooltip from '@material-ui/core/Tooltip';
-import JiraIssueBadge from 'src/client/components/jira-issue-chip';
+import JiraIssueChip from 'src/client/components/jira-issue-chip';
+import { ChipGroup } from 'src/client/components/chip';
 import JiraFixVersionChip from 'src/client/components/jira-fix-version-chip';
 import GitlabFixVersionChip from 'src/client/components/gitlab-fix-version-chip';
 import TimeAgo from 'react-timeago';
@@ -56,33 +57,35 @@ class ProjectMergeRequests extends PureComponent {
   }
 
   getMergeRequestJiraIssues(jiraIssues) {
-    const output = jiraIssues.map((jiraIssue) => {
-      const jiraIssueIdOutput = (
-        <div key={jiraIssue.key}>
-          <JiraIssueBadge
-            jiraIssue={jiraIssue}
-          />
-        </div>
-      );
+    const jiraIssuesChips = jiraIssues.map(jiraIssue => (
+      <JiraIssueChip
+        key={jiraIssue.key}
+        jiraIssue={jiraIssue}
+      />
+    ));
 
-      return jiraIssueIdOutput;
-    });
+    const output = (
+      <ChipGroup>
+        {jiraIssuesChips}
+      </ChipGroup>
+    );
 
     return output;
   }
 
   getMergeRequestJiraFixVersions(jiraIssues) {
-    const output = jiraIssues.map((jiraIssue) => {
-      const jiraIssueIdOutput = (
-        <div key={jiraIssue.key}>
-          <JiraFixVersionChip
-            jiraIssue={jiraIssue}
-          />
-        </div>
-      );
+    const fixVersionsChips = jiraIssues.map(jiraIssue => (
+      <JiraFixVersionChip
+        key={jiraIssue.key}
+        jiraIssue={jiraIssue}
+      />
+    ));
 
-      return jiraIssueIdOutput;
-    });
+    const output = (
+      <ChipGroup>
+        {fixVersionsChips}
+      </ChipGroup>
+    );
 
     return output;
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Chip from 'src/client/components/chip';
+import { Chip } from 'src/client/components/chip';
 
 const JiraFixVersionChip = (props) => {
   const { jiraIssue } = props;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Chip from 'src/client/components/chip';
+import Chip from 'src/client/components/chip/chip/index';
 import Avatar from '@material-ui/core/Avatar';
 
 const JiraIssueChip = (props) => {
