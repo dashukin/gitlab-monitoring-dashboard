@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Badge from '@material-ui/core/Badge';
 import ThumbUp from '@material-ui/icons/ThumbUp';
+import Tooltip from '@material-ui/core/Tooltip';
 import JiraIssueBadge from 'src/client/components/jira-issue-chip';
 import JiraFixVersionChip from 'src/client/components/jira-fix-version-chip';
 import GitlabFixVersionChip from 'src/client/components/gitlab-fix-version-chip';
@@ -90,10 +91,14 @@ class ProjectMergeRequests extends PureComponent {
   }
 
   getMergeRequestsBody() {
-    const { mergeRequests } = this.props;
-    const rows = map(mergeRequests, (mr) => {
-      const jiraIssuesIds = this.getMergeRequestJiraIssues(mr.jiraIssues);
-      const jiraFixVersions = this.getMergeRequestJiraFixVersions(mr.jiraIssues);
+    const {
+      mergeRequests,
+    } = this.props;
+    const rows = map(mergeRequests, (data) => {
+      const { mergeRequest: mr, jiraIssues, mergeRequestThumbsup } = data;
+      const jiraIssuesIds = this.getMergeRequestJiraIssues(jiraIssues);
+      const jiraFixVersions = this.getMergeRequestJiraFixVersions(jiraIssues);
+      const mrThumbsupTooltip = mergeRequestThumbsup.map(awardEmoji => awardEmoji.user.username).join(', ');
 
       const mergeRequestRow = (
         <TableRow key={mr.id}>
@@ -106,9 +111,11 @@ class ProjectMergeRequests extends PureComponent {
             <TimeAgo date={mr.createdAt} />
           </TableCell>
           <TableCell>
-            <Badge badgeContent={mr.upvotes} max={10}>
-              <ThumbUp fontSize="small" />
-            </Badge>
+            <Tooltip title={mrThumbsupTooltip}>
+              <Badge badgeContent={mr.upvotes} max={10}>
+                <ThumbUp fontSize="small" />
+              </Badge>
+            </Tooltip>
           </TableCell>
           <TableCell>
             <GitlabFixVersionChip
@@ -172,11 +179,13 @@ class ProjectMergeRequests extends PureComponent {
 
 ProjectMergeRequests.propTypes = {
   mergeRequests: PropTypes.arrayOf(PropTypes.shape({})),
+  mergeRequestsThumbsup: PropTypes.shape({}),
   loading: PropTypes.bool,
 };
 
 ProjectMergeRequests.defaultProps = {
   mergeRequests: [],
+  mergeRequestsThumbsup: {},
   loading: false,
 };
 

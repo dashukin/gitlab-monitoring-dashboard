@@ -6,12 +6,16 @@ import { projectSchema } from './schemas/project';
 import { mergeRequestSchema } from './schemas/merge-request';
 import { jiraIssueSchema } from './schemas/jira/issues';
 
+import { awardEmojiSchema } from './schemas/gitlab/award-emoji.schema';
+
 export const normalizeExampleData = data => normalize(data, exampleSchema);
 
 export const normalizeProject = data => normalize(data, projectSchema);
 export const normalizeProjects = data => normalize(data, [projectSchema]);
 
 export const normalizeMergeRequests = data => normalize(data, [mergeRequestSchema]);
+
+export const normalizeAwardEmojis = data => normalize(data, [awardEmojiSchema]);
 
 export const normalizeJiraIssue = data => normalize(data, jiraIssueSchema);
 export const normalizeJiraIssues = data => normalize(data, [jiraIssueSchema]);

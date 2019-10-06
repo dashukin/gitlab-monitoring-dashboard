@@ -41,17 +41,9 @@ class GitlabApi extends Api {
    * @param {String} id - project id
    * @return {*}
    */
-  fetchProject = (id) => {
-    const request = this.get(`/projects/${id}`);
+  fetchProject = id => this.get(`/projects/${id}`);
 
-    return request;
-  };
-
-  fetchProjects = () => {
-    const request = this.get('/projects/');
-
-    return request;
-  };
+  fetchProjects = () => this.get('/projects/');
 
   /**
    *
@@ -67,7 +59,19 @@ class GitlabApi extends Api {
     });
 
     return request;
-  }
+  };
+
+  /**
+   *
+   * @param projectId
+   * @param {Number} mergeRequestId
+   * @return {*}
+   */
+  fetchProjectMergeRequestAwardEmoji = ({ projectId, mergeRequestIid }) => {
+    const request = this.get(`/projects/${projectId}/merge_requests/${mergeRequestIid}/award_emoji`);
+
+    return request;
+  };
 }
 
 export default GitlabApi;

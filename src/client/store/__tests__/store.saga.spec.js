@@ -15,8 +15,9 @@ import {
   watchSagas,
   watchSaga,
 } from '../store.saga';
-import { watchJiraIssues } from '../reducers/jira-issues/jira-issues.saga';
-import { watchFetchProjectData } from '../reducers/project/project.saga';
+import { watchJiraIssues } from 'src/client/store/reducers/jira-issues/jira-issues.saga';
+import { watchFetchProjectData } from 'src/client/store/reducers/project/project.saga';
+import { watchGitlabMrAwardEmoji } from 'src/client/store/reducers/gitlab-award-emoji/gitlab-award-emoji.saga';
 
 jest.mock('redux-saga/effects');
 
@@ -65,6 +66,7 @@ describe('store.saga', () => {
         watchProjects,
         watchMergeRequests,
         watchJiraIssues,
+        watchGitlabMrAwardEmoji,
       ];
 
       expect(watchSagas).toEqual(expected);

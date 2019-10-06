@@ -8,6 +8,7 @@ import { watchFetchProjectData } from 'src/client/store/reducers/project/project
 import { watchProjects } from 'src/client/store/reducers/projects/projects.saga';
 import { watchMergeRequests } from 'src/client/store/reducers/merge-requests/merge-requests.saga';
 import { watchJiraIssues } from 'src/client/store/reducers/jira-issues/jira-issues.saga';
+import { watchGitlabMrAwardEmoji } from 'src/client/store/reducers/gitlab-award-emoji/gitlab-award-emoji.saga';
 
 export const startSagas = [
   initI18n,
@@ -19,6 +20,7 @@ export const watchSagas = [
   watchProjects,
   watchMergeRequests,
   watchJiraIssues,
+  watchGitlabMrAwardEmoji,
 ];
 
 export function* watchSaga() {

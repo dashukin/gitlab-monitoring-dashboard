@@ -10,6 +10,7 @@ import { getProjectsEntities } from 'src/client/selectors/common/projects.select
 import { getMergeRequestsEntities } from 'src/client/selectors/common/merge-requests.selector';
 import { getProjectDataMap } from 'src/client/selectors/common/project.selector';
 import { getJiraIssues } from 'src/client/selectors/common/jira-issues.selector';
+import { getAwardEmojiThumbsUp } from 'src/client/selectors/common/award-emoji.selector';
 
 export const getProjectId = (state) => {
   const id = get(state, 'location.payload.projectId');
@@ -98,31 +99,95 @@ export const getCurrentProjectJiraIssues = createSelector(
   },
 );
 
+export const getCurrentProjectMergeRequestsIds = createSelector(
+  [getCurrentProjectMergeRequests],
+  (mergeRequests) => {
+    const mergerequestsIds = mergeRequests.map(mr => mr.id);
+
+    return mergerequestsIds;
+  },
+);
+
+export const getCurrentProjectMergeRequestsThumbsup = createSelector(
+  [getCurrentProjectMergeRequestsIds, getAwardEmojiThumbsUp],
+  (mergeRequestsIds, awardEmojis) => {
+    const thumbsupToMrIdsMap = mergeRequestsIds.reduce((acc, mrId) => {
+      if (!acc[mrId]) {
+        acc[mrId] = [];
+      }
+
+      const mrThumbupList = awardEmojis.filter(awardEmoji => awardEmoji.awardableId === mrId);
+
+      if (mrThumbupList) {
+        acc[mrId] = acc[mrId].concat(mrThumbupList);
+      }
+
+      return acc;
+    }, {});
+
+    return thumbsupToMrIdsMap;
+  },
+);
+
+/**
+ * @typedef {Object} MergeRequestCombined
+ *
+ * @property {MergeRequest} mergeRequest
+ * @property {JiraIssue[]} jiraIssues - merge request jira issues
+ */
+
 export const getCurrentProjectCombinedMergeRequests = createSelector(
   [
     getCurrentProjectMergeRequests,
     getCurrentProjectJiraIssues,
+    getAwardEmojiThumbsUp,
   ],
-  (mergeRequests, jiraIssues) => {
+  /**
+   *
+   * @param mergeRequests
+   * @param jiraIssues
+   * @return {MergeRequestCombined[]}
+   */
+  (mergeRequests, jiraIssues, awardEmojis) => {
     /**
      *
      * @type {Array}
      */
     const clonedMergeRequests = cloneDeep(mergeRequests);
-    const mergeRequestsWithJiraIssuesEntities = clonedMergeRequests
-      .map((mergeRequest) => {
+    const mergeRequestsCombinedData = clonedMergeRequests
+      .reduce((acc, mergeRequest) => {
+        const combinedData = {};
+        // prepare merge request data
+        combinedData.mergeRequest = mergeRequest;
+
+        // prepare jira issues data
         const mergeRequestIssuesKeys = mergeRequest.jiraIssues;
-        // replace issue keys with issue entities and filter them
         const jiraIssuesByJiraIssuesKeysList = mergeRequestIssuesKeys
           .map(jiraIssueKey => jiraIssues[jiraIssueKey])
           .filter(jiraIssue => !!jiraIssue);
 
-        // eslint-disable-next-line no-param-reassign
-        mergeRequest.jiraIssues = jiraIssuesByJiraIssuesKeysList;
+        combinedData.jiraIssues = jiraIssuesByJiraIssuesKeysList;
 
-        return mergeRequest;
-      });
+        // prepare merge request award emojis
+        const mrThumbupList = awardEmojis.filter(
+          awardEmoji => awardEmoji.awardableId === mergeRequest.id,
+        );
+        combinedData.mergeRequestThumbsup = mrThumbupList;
 
-    return mergeRequestsWithJiraIssuesEntities;
+        acc.push(combinedData);
+
+        return acc;
+      }, []);
+
+    return mergeRequestsCombinedData;
+  },
+);
+
+export const getCurrentProjectMergeRequestsIids = createSelector(
+  [getCurrentProjectMergeRequests],
+  (mergeRequests) => {
+    const mergerequestsIids = mergeRequests.map(mr => mr.iid);
+
+    return mergerequestsIids;
   },
 );

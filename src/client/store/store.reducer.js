@@ -5,6 +5,7 @@ import projectData from 'src/client/store/reducers/project/project.reducer';
 import projects from 'src/client/store/reducers/projects/projects.reducer';
 import mergeRequests from 'src/client/store/reducers/merge-requests/merge-requests.reducer';
 import jiraIssues from 'src/client/store/reducers/jira-issues/jira-issues.reducer';
+import gitlabAwardEmoji from 'src/client/store/reducers/gitlab-award-emoji/gitlab-award-emoji.reducer';
 
 export const reducers = {
   db,
@@ -13,6 +14,7 @@ export const reducers = {
   projects,
   mergeRequests,
   jiraIssues,
+  gitlabAwardEmoji,
 };
 
 export const createCombinedReducers = extraReducers => (

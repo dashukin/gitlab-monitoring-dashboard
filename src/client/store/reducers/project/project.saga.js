@@ -5,9 +5,13 @@ import {
   put,
   select,
 } from 'redux-saga/effects';
-import { getCurrentProjectMergeRequestsIssues } from 'src/client/selectors/composed/project/project.selector';
+import {
+  getCurrentProjectMergeRequestsIssues,
+  getCurrentProjectMergeRequestsIids,
+} from 'src/client/selectors/composed/project/project.selector';
 import { fetchProjectById } from '../projects/projects.saga';
 import { fetchMergeRequestsByProjectId } from '../merge-requests/merge-requests.saga';
+import { fetchGitlabMrAwardEmojiData } from '../gitlab-award-emoji/gitlab-award-emoji.saga';
 
 import { fetchProjectDataSuccess } from './project.actions';
 import projectDataConstants from './project.constants';
@@ -26,7 +30,12 @@ export function* fetchProjectData(action) {
   ]);
 
   const mergeRequestsIssuesIds = yield select(getCurrentProjectMergeRequestsIssues);
+  const mergeRequestsIids = yield select(getCurrentProjectMergeRequestsIids);
 
+  yield call(fetchGitlabMrAwardEmojiData, {
+    projectId,
+    mergeRequestIid: mergeRequestsIids,
+  });
   yield call(fetchJiraIssuesByIds, mergeRequestsIssuesIds);
 
   yield put(fetchProjectDataSuccess(projectId));

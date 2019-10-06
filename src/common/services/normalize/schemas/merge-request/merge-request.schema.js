@@ -67,6 +67,7 @@ export const mergeRequestSchema = new schema.Entity('mergeRequest', {}, {
     const mergeRequestData = {};
 
     mergeRequestData.id = entity.id;
+    mergeRequestData.iid = entity.iid;
     mergeRequestData.projectId = entity.project_id;
     mergeRequestData.assignee = convertRawUser(entity.assignee);
     mergeRequestData.author = convertRawUser(entity.author);
@@ -81,10 +82,7 @@ export const mergeRequestSchema = new schema.Entity('mergeRequest', {}, {
     mergeRequestData.createdAt = entity.created_at;
     mergeRequestData.jiraIssues = extractMergeRequestIssues(entity.title);
 
-
-    if (!PRODUCTION) {
-      mergeRequestData.__raw = cloneDeep(entity);
-    }
+    mergeRequestData.__raw = cloneDeep(entity);
 
     return mergeRequestData;
   },

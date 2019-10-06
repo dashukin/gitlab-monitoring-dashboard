@@ -3,6 +3,7 @@
 exports[`store.reducer reducers should match snapshot 1`] = `
 Object {
   "db": [Function],
+  "gitlabAwardEmoji": [Function],
   "jiraIssues": [Function],
   "mergeRequests": [Function],
   "page": [Function],
