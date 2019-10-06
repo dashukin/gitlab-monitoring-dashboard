@@ -4,7 +4,7 @@ import { ROOT_ELEMENT_ID } from 'config/application';
 import get from 'lodash/get';
 
 import { createAppStore } from 'src/client/store/store';
-import { createServices } from 'src/common/services';
+import { createClientServices } from 'src/common/services';
 import { createClientHistory } from 'src/common/history';
 
 import inlineScripts from 'src/client/inline-scripts/compiled/inline-scripts';
@@ -25,7 +25,7 @@ export const createApp = ({ store, services }) => {
 
 export const startApplication = async () => {
   const preloadedState = get(window, '__PRELOADED_STATE__', {});
-  const services = createServices({
+  const services = createClientServices({
     location: window.location,
     cookie: document.cookie,
   });

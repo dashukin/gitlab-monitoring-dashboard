@@ -6,10 +6,10 @@ import {
 
 export const getIssues = async (req, res) => {
   const { services, logger } = res.locals;
-  const { jiraApi } = services;
+  const { jiraBackendApi } = services;
   try {
     const jiraIds = req.body;
-    const response = await jiraApi.fetchIssuesByIds(jiraIds);
+    const response = await jiraBackendApi.fetchIssuesByIds(jiraIds);
     const { issues } = response.data;
 
     const normalizedData = normalizeJiraIssues(issues);

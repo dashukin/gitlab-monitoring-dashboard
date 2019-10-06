@@ -1,6 +1,6 @@
 import Api from 'src/common/services/api';
 
-class ProjectsApi extends Api {
+class GitlabApi extends Api {
   constructor(props) {
     const extendedProps = {
       ...props,
@@ -30,4 +30,4 @@ class ProjectsApi extends Api {
   fetchMergeRequests = id => this.get(`/projects/${id}/merge-requests`);
 }
 
-export default ProjectsApi;
+export default GitlabApi;

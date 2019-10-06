@@ -20,9 +20,9 @@ const {
 export function* fetchMergeRequestsByProjectId(projectId) {
   try {
     const services = yield getContext('services');
-    const { projectsApi } = services;
+    const { gitlabApi } = services;
 
-    const { data } = yield call(projectsApi.fetchMergeRequests, projectId);
+    const { data } = yield call(gitlabApi.fetchMergeRequests, projectId);
     const mergeRequestsIds = data.result;
     const mergeRequestsEntities = data.entities.mergeRequest;
 

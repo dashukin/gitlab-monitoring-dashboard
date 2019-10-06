@@ -22,9 +22,9 @@ const {
 export function* fetchProjects() {
   try {
     const services = yield getContext('services');
-    const { projectsApi } = services;
+    const { gitlabApi } = services;
 
-    const response = yield call(projectsApi.fetchProjects);
+    const response = yield call(gitlabApi.fetchProjects);
 
     const projectIds = response.result;
     const projectEntities = response.entities.project;
@@ -48,8 +48,8 @@ export function* watchFetchExampleData() {
 export function* fetchProjectById(projectId) {
   try {
     const services = yield getContext('services');
-    const { projectsApi } = services;
-    const response = yield call(projectsApi.fetchProject, projectId);
+    const { gitlabApi } = services;
+    const response = yield call(gitlabApi.fetchProject, projectId);
     const { data } = response;
     const projectEntity = data.entities.project;
 
