@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Paper from '@material-ui/core/Paper';
@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Badge from '@material-ui/core/Badge';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 import JiraIssueChip from 'src/client/components/jira-issue-chip';
 import { ChipGroup } from 'src/client/components/chip';
 import JiraFixVersionChip from 'src/client/components/jira-fix-version-chip';
@@ -104,7 +105,12 @@ class ProjectMergeRequests extends PureComponent {
         <TableRow key={mr.id}>
           <TableCell>
             <Tooltip title={mr.description} interactive>
-              <div>{mr.title}</div>
+              <Fragment>
+                <Typography variant="body1">{mr.title}</Typography>
+                <Typography variant="caption">
+                  {`Author:  ${mr.author.username}`}
+                </Typography>
+              </Fragment>
             </Tooltip>
           </TableCell>
           <TableCell className={classnames.cell}>
