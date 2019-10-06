@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`header snapshots should match snapshot 1`] = `
+<WithStyles(ForwardRef(AppBar))>
+  <WithStyles(ForwardRef(Toolbar))>
+    <WithStyles(ForwardRef(IconButton))
+      aria-label="open drawer"
+      color="inherit"
+      edge="start"
+    >
+      <MenuIcon />
+    </WithStyles(ForwardRef(IconButton))>
+    <WithStyles(ForwardRef(Typography))
+      variant="h6"
+    >
+      Gitlab monitoring dashboard
+    </WithStyles(ForwardRef(Typography))>
+  </WithStyles(ForwardRef(Toolbar))>
+</WithStyles(ForwardRef(AppBar))>
+`;
