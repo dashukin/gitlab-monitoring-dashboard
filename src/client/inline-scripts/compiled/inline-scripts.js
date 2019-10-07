@@ -1,1 +1,1 @@
-!function(n){n.console&&"function"==typeof n.console.warn&&console.warn("This is injected script")}(window);
+!function(n){n.console&&"function"==typeof n.console.warn&&console.warn("This is injected script")}(window||{});
