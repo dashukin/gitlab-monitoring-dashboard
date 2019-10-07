@@ -37,4 +37,4 @@ export const DIST_CLIENT_TEMPLATE = path.resolve(DIST_CLIENT_STATIC_DIR, './inde
 export const DIST_WEBPACK_STATS_DIR = path.resolve(process.cwd(), 'dist/server/stats');
 export const DIST_WEBPACK_STATS_FILE_SRC = path.resolve(DIST_WEBPACK_STATS_DIR, './stats.json');
 
-export const SERVER_PORT = 3000;
+export const SERVER_PORT = 3162;
