@@ -100,6 +100,7 @@ class ProjectMergeRequests extends PureComponent {
       const jiraIssuesIds = this.getMergeRequestJiraIssues(jiraIssues);
       const jiraFixVersions = this.getMergeRequestJiraFixVersions(jiraIssues);
       const mrThumbsupTooltip = mergeRequestThumbsup.map(awardEmoji => awardEmoji.user.username).join(', ');
+      const mrLabels = mr.labels.length ? `Labels:  ${mr.labels.join(', ')}` : null;
 
       const mergeRequestRow = (
         <TableRow key={mr.id}>
@@ -107,6 +108,9 @@ class ProjectMergeRequests extends PureComponent {
             <Tooltip title={mr.description} interactive>
               <Fragment>
                 <Typography variant="body1">{mr.title}</Typography>
+                <Typography variant="body2">
+                  {mrLabels}
+                </Typography>
                 <Typography variant="caption">
                   {`Author:  ${mr.author.username}`}
                 </Typography>

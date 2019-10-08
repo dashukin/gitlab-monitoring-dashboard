@@ -36,16 +36,16 @@ export const convertRawUser = (rawUserData) => {
 };
 
 
-export const getJiraIssuePattern = () => /(\w+-\d+)+/g;
+export const getJiraIssuePattern = () => /(\w+-\d+)+/gm;
 
 /**
  * Extract issues from merge request title
  * @param {String} title
  * @return {String[]} - list of jira issues
  */
-export const extractMergeRequestIssues = (title) => {
+export const extractMergeRequestIssues = (string) => {
   const pattern = getJiraIssuePattern();
-  const issues = title.match(pattern);
+  const issues = string.match(pattern);
   const output = !issues
     ? []
     : issues.map(issueId => issueId.replace('[', '').replace(']', ''));
