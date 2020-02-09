@@ -17,38 +17,12 @@ import JiraApi from 'src/common/services/api/jira';
 export const createClientServices = (options = {}) => {
   const { location, cookie } = options;
   const servicesMap = chainalize({
-    CookieService,
-    LocationService,
-    I18nService,
-    I18nApi,
-    GitlabApi,
-    JiraApi,
-  }, {
-    location,
-    cookie,
-  });
-
-  return servicesMap;
-};
-
-/**
- *
- * @param {Object} options
- * @param {Object} options.services
- * @param {Object} options.location
- * @param {Object|String} options.cookie
- * @return {*}
- */
-export const createServerServices = (options = {}) => {
-  const { location, cookie } = options;
-  const servicesMap = chainalize({
-    CookieService,
-    LocationService,
-    I18nService,
-    I18nApi,
-  }, {
-    location,
-    cookie,
+    cookieService: [CookieService, { cookie }],
+    locationService: [LocationService, { location }],
+    i18nService: [I18nService],
+    i18nApi: [I18nApi],
+    gitlabApi: [GitlabApi],
+    jiraApi: [JiraApi],
   });
 
   return servicesMap;
