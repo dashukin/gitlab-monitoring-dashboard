@@ -95,7 +95,7 @@
     "json-loader": "^0.5.7",
     "keymirror": "^0.1.1",
     "ky-universal": "^0.3.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "node-sass": "^4.13.1",
     "nodemon": "^1.19.4",
     "normalizr": "^3.5.0",
