@@ -12,12 +12,12 @@ const {
 } = envConfig;
 
 export const createServerServices = () => chainalize({
-  GitlabApi: [GitlabApi, {
+  gitlabApi: [GitlabApi, {
     host: GITLAB_HOST,
     token: GITLAB_ACEESS_TOKEN,
     version: 'v4',
   }],
-  JiraApi: [JiraApi, {
+  jiraApi: [JiraApi, {
     host: JIRA_HOST,
     token: JIRA_BASIC_TOKEN,
     version: JIRA_API_VERSION,

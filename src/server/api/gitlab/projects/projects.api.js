@@ -7,20 +7,20 @@ import {
 
 export const getProjects = async (req, res) => {
   const { services, logger } = res.locals;
-  const { gitlabBackendApi } = services;
+  const { gitlabApi } = services;
   try {
     const { projectId } = req.params;
     let apiRequest;
     const apiRequestArgs = [];
 
     if (projectId) {
-      apiRequest = gitlabBackendApi.fetchProject;
+      apiRequest = gitlabApi.fetchProject;
       apiRequestArgs.push(projectId);
     } else {
-      apiRequest = gitlabBackendApi.fetchProjects;
+      apiRequest = gitlabApi.fetchProjects;
     }
 
-    const response = await apiRequest.apply(gitlabBackendApi, apiRequestArgs);
+    const response = await apiRequest.apply(gitlabApi, apiRequestArgs);
     const normalizeFn = projectId ? normalizeProject : normalizeProjects;
     const { data } = response;
 
@@ -37,10 +37,10 @@ export const getProjects = async (req, res) => {
 
 export const getProjectMergeRequests = async (req, res) => {
   const { services, logger } = res.locals;
-  const { gitlabBackendApi } = services;
+  const { gitlabApi } = services;
   try {
     const { projectId } = req.params;
-    const response = await gitlabBackendApi.fetchProjectMergeRequests(projectId);
+    const response = await gitlabApi.fetchProjectMergeRequests(projectId);
     const { data } = response;
 
     const normalizedData = normalizeMergeRequests(data);
@@ -55,14 +55,14 @@ export const getProjectMergeRequests = async (req, res) => {
 
 export const getProjectMergeRequestAwardEmoji = async (req, res) => {
   const { services, logger } = res.locals;
-  const { gitlabBackendApi } = services;
+  const { gitlabApi } = services;
 
   try {
     const { projectId } = req.params;
     const mergeRequestsIids = Array.isArray(req.body) ? req.body : [];
 
     const requestsList = mergeRequestsIids.map((iid) => {
-      const request = gitlabBackendApi.fetchProjectMergeRequestAwardEmoji({
+      const request = gitlabApi.fetchProjectMergeRequestAwardEmoji({
         projectId,
         mergeRequestIid: iid,
       });
