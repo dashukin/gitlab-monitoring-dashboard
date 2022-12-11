@@ -82,7 +82,7 @@
     "csv-parse": "^4.8.5",
     "dotenv": "^8.2.0",
     "enhanced-properties-loader": "^1.4.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "extract-css-chunks-webpack-plugin": "^4.7.4",
     "favicons-webpack-plugin": "^0.0.9",
     "file-loader": "^3.0.1",
